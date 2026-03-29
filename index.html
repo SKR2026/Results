@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POLYPLASTICS — Employee Result Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f12;
+    --surface: #13161b;
+    --surface2: #1a1e25;
+    --border: #252a33;
+    --border-bright: #3a4151;
+    --accent: #f0a500;
+    --accent2: #e05a00;
+    --text: #e8eaf0;
+    --text-muted: #6b7280;
+    --text-dim: #9ca3af;
+    --green: #22c55e;
+    --red: #ef4444;
+    --blue: #3b82f6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(240,165,0,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(240,165,0,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  header {
+    position: relative;
+    z-index: 10;
+    background: var(--surface);
+    border-bottom: 2px solid var(--accent);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .logo { display: flex; align-items: center; gap: 14px; }
+
+  .logo-mark {
+    width: 38px; height: 38px;
+    background: var(--accent);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    color: #000; font-size: 16px; letter-spacing: 1px;
+  }
+
+  .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 4px; color: var(--text); }
+  .logo-sub { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 1px; display: block; }
+
+  nav { display: flex; gap: 6px; }
+
+  .nav-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s;
+  }
+
+  .nav-btn:hover, .nav-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+
+  main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
+
+  .section-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
+
+  h1.hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 6vw, 68px); letter-spacing: 6px; line-height: 0.95; color: var(--text); margin-bottom: 1rem; }
+
+  .hero-desc { color: var(--text-muted); font-size: 14px; line-height: 1.6; max-width: 460px; margin-bottom: 2.5rem; }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); position: relative; }
+
+  .panel::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent); }
+
+  .panel-header { padding: 16px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--surface2); }
+
+  .panel-title { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-dim); }
+
+  .panel-badge { font-family: 'IBM Plex Mono', monospace; font-size: 10px; padding: 3px 10px; border: 1px solid var(--border-bright); color: var(--text-muted); letter-spacing: 1px; }
+
+  .panel-body { padding: 28px; }
+
+  .input-group { margin-bottom: 20px; }
+
+  .input-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; display: block; }
+
+  .input-field {
+    width: 100%; background: var(--bg); border: 1px solid var(--border-bright);
+    color: var(--text); padding: 13px 16px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 15px; letter-spacing: 2px;
+    outline: none; transition: border-color 0.2s; text-transform: uppercase;
+  }
+
+  .input-field:focus { border-color: var(--accent); }
+  .input-field::placeholder { color: var(--border-bright); letter-spacing: 1px; text-transform: uppercase; }
+
+  .btn-primary {
+    width: 100%; padding: 15px; background: var(--accent); color: #000;
+    border: none; font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; letter-spacing: 4px; cursor: pointer; transition: all 0.2s;
+    position: relative; overflow: hidden;
+  }
+
+  .btn-primary::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.15); opacity: 0; transition: opacity 0.2s; }
+  .btn-primary:hover::after { opacity: 1; }
+  .btn-primary:active { transform: scale(0.99); }
+
+  .btn-secondary {
+    padding: 10px 20px; background: transparent; color: var(--text-muted);
+    border: 1px solid var(--border-bright);
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px;
+    cursor: pointer; transition: all 0.2s; text-transform: uppercase;
+  }
+
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  .btn-danger {
+    padding: 10px 20px; background: transparent; color: var(--red);
+    border: 1px solid var(--red);
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px;
+    cursor: pointer; transition: all 0.2s; text-transform: uppercase;
+  }
+
+  .btn-danger:hover { background: var(--red); color: #fff; }
+
+  .btn-replace {
+    padding: 10px 20px; background: transparent; color: var(--blue);
+    border: 1px solid var(--blue);
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px;
+    cursor: pointer; transition: all 0.2s; text-transform: uppercase; display: flex; align-items: center;
+  }
+
+  .btn-replace:hover { background: var(--blue); color: #fff; }
+
+  .btn-json {
+    padding: 10px 20px; background: transparent; color: #a78bfa;
+    border: 1px solid #a78bfa;
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px;
+    cursor: pointer; transition: all 0.2s; text-transform: uppercase; display: flex; align-items: center;
+  }
+  .btn-json:hover { background: #a78bfa; color: #fff; }
+
+  .result-card { display: none; animation: slideUp 0.4s ease; }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-card.visible { display: block; }
+
+  .result-employee-header {
+    background: var(--surface2); border: 1px solid var(--border); border-bottom: none;
+    padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+
+  .result-name { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 4px; color: var(--text); }
+
+  .result-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+
+  .meta-chip { display: flex; flex-direction: column; gap: 2px; }
+  .meta-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+  .meta-value { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent); font-weight: 600; }
+
+  .score-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; border: 1px solid var(--border); border-top: none; }
+
+  .score-cell { padding: 28px 24px; border-right: 1px solid var(--border); position: relative; }
+  .score-cell:last-child { border-right: none; }
+  .score-cell.highlight { background: var(--surface2); }
+
+  .score-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+
+  .score-value { font-family: 'Bebas Neue', sans-serif; font-size: 56px; line-height: 1; color: var(--text); }
+  .score-max { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+  .score-bar-track { height: 3px; background: var(--border); margin-top: 16px; position: relative; }
+  .score-bar-fill { height: 100%; background: var(--accent); transition: width 1s cubic-bezier(.22,.61,.36,1); }
+
+  .score-cell.highlight .score-value { color: var(--accent); }
+
+  .result-status-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .status-dot.excellent { background: #22c55e; }
+  .status-dot.verygood  { background: #84cc16; }
+  .status-dot.good      { background: #f0a500; }
+  .status-dot.fair      { background: #f97316; }
+  .status-dot.poor      { background: var(--red); }
+
+  .status-text { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+  .status-text.excellent { color: #22c55e; }
+  .status-text.verygood  { color: #84cc16; }
+  .status-text.good      { color: #f0a500; }
+  .status-text.fair      { color: #f97316; }
+  .status-text.poor      { color: var(--red); }
+
+  .error-msg { display: none; padding: 14px 20px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3); color: var(--red); font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1px; margin-bottom: 16px; }
+  .error-msg.visible { display: block; }
+
+  .admin-panel { display: none; }
+  .admin-panel.visible { display: block; }
+  .employee-panel { display: block; }
+  .employee-panel.hidden { display: none; }
+
+  .data-table { width: 100%; border-collapse: collapse; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+
+  .data-table th { padding: 10px 14px; text-align: left; background: var(--surface2); border: 1px solid var(--border); color: var(--text-muted); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+
+  .data-table td { padding: 11px 14px; border: 1px solid var(--border); color: var(--text-dim); }
+
+  .data-table tr:hover td { background: var(--surface2); }
+
+  .table-actions { display: flex; gap: 8px; }
+
+  .tbl-btn { padding: 4px 10px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1px; cursor: pointer; border: 1px solid; background: transparent; transition: all 0.2s; text-transform: uppercase; }
+  .tbl-btn.edit { color: var(--accent); border-color: var(--accent); }
+  .tbl-btn.delete { color: var(--red); border-color: var(--red); }
+  .tbl-btn.edit:hover { background: var(--accent); color: #000; }
+  .tbl-btn.delete:hover { background: var(--red); color: #fff; }
+
+  .admin-login { max-width: 400px; margin: 0 auto; }
+
+  .divider { height: 1px; background: var(--border); margin: 28px 0; position: relative; }
+  .divider::before { content: attr(data-label); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--surface); padding: 0 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase; }
+
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+  .modal-overlay.visible { display: flex; }
+
+  .modal { background: var(--surface); border: 1px solid var(--border-bright); border-top: 3px solid var(--accent); width: 90%; max-width: 520px; padding: 32px; animation: slideUp 0.3s ease; position: relative; max-height: 90vh; overflow-y: auto; }
+
+  .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 4px; margin-bottom: 20px; }
+
+  .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: 1px solid var(--border); color: var(--text-muted); width: 30px; height: 30px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .modal-close:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Replace modal */
+  .replace-modal { max-width: 600px; }
+
+  .upload-area { border: 2px dashed var(--border-bright); padding: 28px; text-align: center; cursor: pointer; transition: all 0.2s; margin-bottom: 16px; }
+  .upload-area:hover { border-color: var(--accent); }
+  .upload-area input { display: none; }
+  .upload-icon { font-size: 28px; margin-bottom: 8px; }
+  .upload-text { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase; }
+
+  .notif { display: none; position: fixed; bottom: 24px; right: 24px; background: var(--surface); border: 1px solid var(--border-bright); border-left: 3px solid var(--green); padding: 14px 20px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1px; z-index: 200; animation: slideUp 0.3s ease; max-width: 320px; }
+  .notif.visible { display: block; }
+  .notif.error { border-left-color: var(--red); }
+
+  @media (max-width: 640px) {
+    .score-grid { grid-template-columns: 1fr; }
+    .score-cell { border-right: none; border-bottom: 1px solid var(--border); }
+    h1.hero-title { font-size: 40px; }
+    header { flex-wrap: wrap; gap: 10px; height: auto; padding: 12px 1rem; }
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 500px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .inline-flex { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* Pagination */
+  .pagination {
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 16px; flex-wrap: wrap;
+  }
+
+  .page-btn {
+    padding: 6px 12px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1px;
+    cursor: pointer; border: 1px solid var(--border-bright);
+    background: transparent; color: var(--text-muted); transition: all 0.15s;
+  }
+
+  .page-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .page-btn.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 600; }
+  .page-btn:disabled { opacity: 0.3; cursor: default; }
+
+  .page-info { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-muted); letter-spacing: 1px; margin-left: 6px; }
+
+  /* Filter row */
+  .filter-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; align-items: flex-end; }
+  .filter-row .input-group { margin-bottom: 0; flex: 1; min-width: 140px; }
+
+  /* Import mode toggle */
+  .import-mode-toggle { display: flex; gap: 0; margin-bottom: 20px; }
+  .mode-btn { flex: 1; padding: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border: 1px solid var(--border-bright); background: transparent; color: var(--text-muted); transition: all 0.2s; }
+  .mode-btn.active-merge { background: var(--accent); color: #000; border-color: var(--accent); }
+  .mode-btn.active-replace { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+  .warning-box { padding: 12px 16px; background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.3); color: var(--blue); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1px; margin-bottom: 16px; line-height: 1.6; }
+  .warning-box.danger { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.3); color: var(--red); }
+
+  .rows-per-page { display: flex; align-items: center; gap: 8px; }
+  .rows-per-page select { background: var(--bg); border: 1px solid var(--border-bright); color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; font-size: 11px; padding: 5px 8px; cursor: pointer; }
+
+  .table-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+
+  /* ── Analytics Section ── */
+  .analytics-section { margin-top: 56px; }
+  .analytics-section h2 { font-family:'Bebas Neue',sans-serif; font-size:clamp(28px,4vw,44px); letter-spacing:5px; color:var(--text); margin-bottom:6px; }
+  .analytics-section p  { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-muted); letter-spacing:1px; margin-bottom:32px; }
+
+  .analytics-table { width:100%; border-collapse:collapse; font-family:'IBM Plex Mono',monospace; font-size:12px; }
+  .analytics-table th { padding:10px 14px; text-align:center; background:var(--surface2); border:1px solid var(--border); color:var(--text-muted); font-size:9px; letter-spacing:2px; text-transform:uppercase; }
+  .analytics-table th:first-child { text-align:left; }
+  .analytics-table td { padding:10px 14px; border:1px solid var(--border); color:var(--text-dim); text-align:center; }
+  .analytics-table td:first-child { text-align:left; color:var(--text); font-weight:600; font-size:11px; }
+  .analytics-table tr:hover td { background:var(--surface2); }
+  .analytics-table tfoot td { background:var(--surface2); color:var(--accent); font-weight:700; border-top:2px solid var(--border-bright); }
+  .analytics-table tfoot td:first-child { color:var(--text-muted); }
+
+  .grade-pill { display:inline-block; padding:2px 8px; border-radius:2px; font-size:10px; font-weight:700; letter-spacing:1px; }
+  .grade-pill.excellent { background:rgba(34,197,94,0.15);  color:#22c55e; }
+  .grade-pill.verygood  { background:rgba(132,204,22,0.15); color:#84cc16; }
+  .grade-pill.good      { background:rgba(240,165,0,0.15);  color:#f0a500; }
+  .grade-pill.fair      { background:rgba(249,115,22,0.15); color:#f97316; }
+  .grade-pill.poor      { background:rgba(239,68,68,0.15);  color:#ef4444; }
+
+  /* Topper card */
+  .topper-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; margin-top:0; }
+  .topper-card { background:var(--surface); border:1px solid var(--border); padding:20px 22px; position:relative; }
+  .topper-card::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; background:var(--accent); }
+  .topper-rank { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:2px; color:var(--text-muted); margin-bottom:4px; }
+  .topper-dept { font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:2px; color:var(--accent); text-transform:uppercase; margin-bottom:8px; }
+  .topper-name { font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:3px; color:var(--text); margin-bottom:4px; }
+  .topper-meta { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--text-muted); margin-bottom:10px; }
+  .topper-score { display:flex; align-items:baseline; gap:6px; }
+  .topper-score-big { font-family:'Bebas Neue',sans-serif; font-size:36px; color:var(--accent); line-height:1; }
+  .topper-score-sub { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--text-muted); }
+
+  /* Certificate button */
+  .cert-bar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    padding:18px 24px; background:var(--surface2); border:1px solid var(--border); border-top:none; }
+  .cert-bar p { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-muted); letter-spacing:1px; }
+  .btn-cert { padding:12px 28px; background:var(--accent); color:#000; border:none;
+    font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px; cursor:pointer; transition:opacity 0.2s; }
+  .btn-cert:hover { opacity:0.85; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">PP</div>
+    <div>
+      <div class="logo-text">POLYPLASTICS</div>
+    </div>
+  </div>
+  <nav>
+    <button class="nav-btn active" id="btnEmployee" onclick="showView('employee')">Employee</button>
+    <button class="nav-btn" id="btnAdmin" onclick="showView('admin')">Admin</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ========== EMPLOYEE VIEW ========== -->
+  <div class="employee-panel" id="employeeView">
+    <div class="section-tag">// Result Portal</div>
+    <h1 class="hero-title">CHECK YOUR<br>RESULT</h1>
+    <p class="hero-desc">Enter your unique Employee ID to securely access your personal assessment results.</p>
+
+    <div class="panel" style="max-width: 480px;">
+      <div class="panel-header">
+        <span class="panel-title">Lookup Employee</span>
+        <span class="panel-badge">Secure</span>
+      </div>
+      <div class="panel-body">
+        <div class="error-msg" id="lookupError">⚠ No record found for this Employee ID.</div>
+        <div class="input-group">
+          <label class="input-label">Employee ID</label>
+          <input class="input-field" id="empIdInput" type="text" placeholder="e.g. EMP-001" maxlength="20"
+            onkeydown="if(event.key==='Enter') lookupEmployee()">
+        </div>
+        <button class="btn-primary" onclick="lookupEmployee()">FETCH RESULT →</button>
+      </div>
+    </div>
+
+    <div class="result-card" id="resultCard" style="margin-top: 32px;">
+      <div class="result-employee-header">
+        <div>
+          <div class="section-tag">// Assessment Result</div>
+          <div class="result-name" id="res_name">—</div>
+        </div>
+        <div class="result-meta">
+          <div class="meta-chip"><span class="meta-label">Employee ID</span><span class="meta-value" id="res_id">—</span></div>
+          <div class="meta-chip"><span class="meta-label">Plant Code</span><span class="meta-value" id="res_plant">—</span></div>
+          <div class="meta-chip"><span class="meta-label">Department</span><span class="meta-value" id="res_dept">—</span></div>
+        </div>
+      </div>
+      <div class="score-grid">
+        <div class="score-cell">
+          <div class="score-label">Subject 1</div>
+          <div class="score-label" id="res_sub1name" style="color:var(--text-dim);letter-spacing:1px;font-size:11px;margin-bottom:8px;">—</div>
+          <div class="score-value" id="res_sub1">0</div>
+          <div class="score-max" id="res_sub1max">out of 100</div>
+          <div class="score-bar-track"><div class="score-bar-fill" id="bar_sub1" style="width:0%"></div></div>
+          <div class="result-status-row" id="sub1_status"></div>
+        </div>
+        <div class="score-cell">
+          <div class="score-label">Subject 2</div>
+          <div class="score-label" id="res_sub2name" style="color:var(--text-dim);letter-spacing:1px;font-size:11px;margin-bottom:8px;">—</div>
+          <div class="score-value" id="res_sub2">0</div>
+          <div class="score-max" id="res_sub2max">out of 100</div>
+          <div class="score-bar-track"><div class="score-bar-fill" id="bar_sub2" style="width:0%"></div></div>
+          <div class="result-status-row" id="sub2_status"></div>
+        </div>
+        <div class="score-cell highlight">
+          <div class="score-label">Overall Score (Avg %)</div>
+          <div class="score-value" id="res_overall">0</div>
+          <div class="score-max" id="res_overallmax">avg of both subjects</div>
+          <div class="score-bar-track"><div class="score-bar-fill" id="bar_overall" style="width:0%"></div></div>
+          <div class="result-status-row" id="overall_status"></div>
+        </div>
+      </div>
+
+      <!-- ── Certificate Download Bar ── -->
+      <div class="cert-bar" id="certBar" style="display:none;">
+        <p>Your personalised assessment certificate is ready.</p>
+        <button class="btn-cert" onclick="downloadCertificate()">⬇ Download Certificate</button>
+      </div>
+    </div>
+
+    <!-- ══════════ ANALYTICS SECTION ══════════ -->
+    <div class="analytics-section" id="analyticsSection">
+      <div class="section-tag">// Organisation Performance</div>
+      <h2>SCORE DISTRIBUTION<br>&amp; TOPPERS</h2>
+      <p>Live analytics across all plants, departments and subjects — auto-calculated from employee data.</p>
+
+      <!-- DEPARTMENT TOPPERS -->
+      <div class="panel" style="margin-bottom:28px;">
+        <div class="panel-header">
+          <span class="panel-title">Department Toppers</span>
+          <span class="panel-badge">🏆 #1 Per Department</span>
+        </div>
+        <div style="padding:24px;">
+          <div class="topper-grid" id="topperGrid"></div>
+        </div>
+      </div>
+
+      <!-- PLANT-WISE TABLE -->
+      <div class="panel" style="margin-bottom:28px;">
+        <div class="panel-header">
+          <span class="panel-title">Plant-wise Score Distribution</span>
+          <span class="panel-badge" id="plantBadge">0 Plants</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="analytics-table">
+            <thead>
+              <tr>
+                <th>Plant</th>
+                <th><span class="grade-pill excellent">Excellent ≥90%</span></th>
+                <th><span class="grade-pill verygood">Very Good 80–89%</span></th>
+                <th><span class="grade-pill good">Good 70–79%</span></th>
+                <th><span class="grade-pill fair">Fair 60–69%</span></th>
+                <th><span class="grade-pill poor">Need Impr. &lt;60%</span></th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody id="plantTbody"></tbody>
+            <tfoot><tr id="plantTfoot"></tr></tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- DEPT-WISE TABLE -->
+      <div class="panel" style="margin-bottom:8px;">
+        <div class="panel-header">
+          <span class="panel-title">Department-wise Score Distribution</span>
+          <span class="panel-badge" id="deptBadge">0 Depts</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="analytics-table">
+            <thead>
+              <tr>
+                <th>Department</th>
+                <th><span class="grade-pill excellent">Excellent ≥90%</span></th>
+                <th><span class="grade-pill verygood">Very Good 80–89%</span></th>
+                <th><span class="grade-pill good">Good 70–79%</span></th>
+                <th><span class="grade-pill fair">Fair 60–69%</span></th>
+                <th><span class="grade-pill poor">Need Impr. &lt;60%</span></th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody id="deptTbody"></tbody>
+            <tfoot><tr id="deptTfoot"></tr></tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ========== ADMIN VIEW ========== -->
+  <div class="admin-panel" id="adminView">
+
+    <div id="adminLogin">
+      <div class="section-tag">// Admin Access</div>
+      <h1 class="hero-title">ADMIN<br>PORTAL</h1>
+      <p class="hero-desc">Restricted to authorized personnel only. Enter admin credentials to proceed.</p>
+
+      <div class="panel admin-login">
+        <div class="panel-header">
+          <span class="panel-title">Authentication Required</span>
+          <span class="panel-badge">🔒 Restricted</span>
+        </div>
+        <div class="panel-body">
+          <div class="error-msg" id="adminError">⚠ Invalid credentials. Access denied.</div>
+          <div class="input-group">
+            <label class="input-label">Admin Username</label>
+            <input class="input-field" id="adminUser" type="text" placeholder="USERNAME"
+              onkeydown="if(event.key==='Enter') adminLogin()">
+          </div>
+          <div class="input-group">
+            <label class="input-label">Password</label>
+            <input class="input-field" id="adminPass" type="password" placeholder="••••••••"
+              onkeydown="if(event.key==='Enter') adminLogin()">
+          </div>
+          <button class="btn-primary" onclick="adminLogin()">AUTHENTICATE →</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="adminDashboard" style="display:none;">
+      <div class="section-tag">// Admin Dashboard</div>
+      <h1 class="hero-title">MANAGE<br>RESULTS</h1>
+
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+        <div class="inline-flex">
+          <button class="btn-secondary" onclick="openAddModal()">+ Add Employee</button>
+          <label class="btn-secondary" style="cursor:pointer; display:flex; align-items:center;">
+            ↑ Merge CSV
+            <input type="file" id="csvUpload" accept=".csv" style="display:none;" onchange="importCSV(event,'merge')">
+          </label>
+          <label class="btn-replace" style="cursor:pointer; display:flex; align-items:center;">
+            ⟳ Replace Data
+            <input type="file" id="csvReplace" accept=".csv" style="display:none;" onchange="importCSV(event,'replace')">
+          </label>
+          <button class="btn-secondary" onclick="exportCSV()">↓ Export CSV</button>
+          <button class="btn-json" onclick="downloadDataJSON()">↓ Save data.json</button>
+          <button class="btn-danger" onclick="clearAllData()" style="margin-left:4px;">🗑 Clear All</button>
+        </div>
+        <button class="btn-danger" onclick="adminLogout()">Logout</button>
+      </div>
+
+      <!-- Stats row -->
+      <div style="display:grid; grid-template-columns: repeat(4,1fr); gap:12px; margin-bottom:28px;">
+        <div class="panel" style="padding:20px 24px;">
+          <div class="score-label">Total Employees</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:42px; color:var(--text);" id="stat_total">0</div>
+        </div>
+        <div class="panel" style="padding:20px 24px;">
+          <div class="score-label">Avg Overall Score</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:42px; color:var(--accent);" id="stat_avg">0%</div>
+        </div>
+        <div class="panel" style="padding:20px 24px;">
+          <div class="score-label">Excellent Rate</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:42px; color:var(--green);" id="stat_pass">0%</div>
+        </div>
+        <div class="panel" style="padding:20px 24px;">
+          <div class="score-label">Showing</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:42px; color:var(--blue);" id="stat_showing">0</div>
+        </div>
+      </div>
+
+      <!-- Filter row -->
+      <div class="filter-row">
+        <div class="input-group" style="max-width:260px;">
+          <label class="input-label">Search (ID / Name / Plant / Dept)</label>
+          <input class="input-field" id="searchInput" type="text" placeholder="SEARCH..." oninput="onFilterChange()">
+        </div>
+        <div class="input-group" style="max-width:140px;">
+          <label class="input-label">Plant</label>
+          <input class="input-field" id="filterPlant" type="text" placeholder="ALL" oninput="onFilterChange()">
+        </div>
+        <div class="input-group" style="max-width:140px;">
+          <label class="input-label">Dept</label>
+          <input class="input-field" id="filterDept" type="text" placeholder="ALL" oninput="onFilterChange()">
+        </div>
+        <div class="input-group" style="max-width:120px;">
+          <label class="input-label">Result</label>
+          <select class="input-field" id="filterResult" onchange="onFilterChange()" style="font-size:12px;padding:10px 8px;">
+            <option value="">ALL</option>
+            <option value="excellent">EXCELLENT</option>
+            <option value="verygood">VERY GOOD</option>
+            <option value="good">GOOD</option>
+            <option value="fair">FAIR</option>
+            <option value="poor">NEED IMPROVEMENT</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Table toolbar -->
+      <div class="table-toolbar">
+        <span class="page-info" id="tableInfo">—</span>
+        <div class="rows-per-page">
+          <label class="input-label" style="margin:0;">Rows per page:</label>
+          <select onchange="setPageSize(this.value)">
+            <option value="25">25</option>
+            <option value="50" selected>50</option>
+            <option value="100">100</option>
+            <option value="200">200</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div style="overflow-x:auto; border:1px solid var(--border);">
+        <table class="data-table" id="dataTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Emp ID</th>
+              <th>Name</th>
+              <th>Plant</th>
+              <th>Dept</th>
+              <th>Sub 1</th>
+              <th>Sub 2</th>
+              <th>Overall</th>
+              <th>Result</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination" id="paginationBar"></div>
+
+      <!-- CSV Format hint -->
+      <div style="margin-top:20px; padding:14px 18px; border:1px solid var(--border); background:var(--surface2);">
+        <div class="score-label" style="margin-bottom:6px;">CSV Format Guide</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-muted); line-height:1.8;">
+          Headers: <span style="color:var(--accent);">emp_id, name, plant_code, department, sub1_name, sub1_score, sub1_max, sub2_name, sub2_score, sub2_max, pass_mark</span><br>
+          <span style="color:var(--text-muted);">• <b style="color:var(--accent);">Merge CSV</b> — adds new records, updates existing ones by ID</span><br>
+          <span style="color:var(--text-muted);">• <b style="color:var(--blue);">Replace Data</b> — clears ALL existing data and loads the CSV fresh</span><br>
+          <span style="color:var(--text-muted);">• <b style="color:#a78bfa;">Save data.json</b> — downloads the updated data.json to commit to GitHub so all devices see the changes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ========== ADD/EDIT MODAL ========== -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title" id="modalTitle">ADD EMPLOYEE</div>
+    <div class="grid-2">
+      <div class="input-group">
+        <label class="input-label">Employee ID *</label>
+        <input class="input-field" id="m_id" type="text" placeholder="EMP-001">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Full Name *</label>
+        <input class="input-field" id="m_name" type="text" placeholder="JOHN DOE">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Plant Code *</label>
+        <input class="input-field" id="m_plant" type="text" placeholder="PLT-A1">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Department</label>
+        <input class="input-field" id="m_dept" type="text" placeholder="PRODUCTION">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Subject 1 Name</label>
+        <input class="input-field" id="m_sub1name" type="text" placeholder="TECHNICAL">
+      </div>
+      <div class="input-group" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div>
+          <label class="input-label">S1 Score</label>
+          <input class="input-field" id="m_sub1" type="number" placeholder="75" min="0">
+        </div>
+        <div>
+          <label class="input-label">S1 Max</label>
+          <input class="input-field" id="m_sub1max" type="number" placeholder="100" min="1">
+        </div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Subject 2 Name</label>
+        <input class="input-field" id="m_sub2name" type="text" placeholder="SAFETY">
+      </div>
+      <div class="input-group" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div>
+          <label class="input-label">S2 Score</label>
+          <input class="input-field" id="m_sub2" type="number" placeholder="80" min="0">
+        </div>
+        <div>
+          <label class="input-label">S2 Max</label>
+          <input class="input-field" id="m_sub2max" type="number" placeholder="100" min="1">
+        </div>
+      </div>
+    </div>
+    <div class="input-group">
+      <label class="input-label">Pass Mark (per subject, %)</label>
+      <input class="input-field" id="m_pass" type="number" placeholder="50" min="0" max="100">
+    </div>
+    <div class="error-msg" id="modalError">⚠ Please fill in all required fields.</div>
+    <button class="btn-primary" onclick="saveEmployee()" id="modalSaveBtn">SAVE RECORD</button>
+  </div>
+</div>
+
+<!-- Notification -->
+<div class="notif" id="notif"></div>
+
+<!-- Loading Overlay -->
+<div id="loadingOverlay" style="display:none;position:fixed;inset:0;background:rgba(13,15,18,0.92);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:16px;">
+  <div style="width:48px;height:48px;background:var(--accent);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);animation:spin 1.2s linear infinite;"></div>
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:3px;color:var(--text-muted);">LOADING DATA...</div>
+</div>
+<style>@keyframes spin{to{transform:rotate(360deg);}}</style>
+
+<!-- Data source error (shown if data.json missing and no localStorage) -->
+<div id="dataSourceError" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--red);border-left:4px solid var(--red);padding:16px 24px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--red);z-index:300;max-width:480px;text-align:center;letter-spacing:1px;">
+  ⚠ data.json not found in this directory.<br>
+  <span style="color:var(--text-muted);">Make sure data.json is in the same folder as index.html on GitHub.</span>
+</div>
+
+<script>
+// ============================================================
+// CONFIG
+// ============================================================
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "polyplastics@2024";
+const LS_OVERRIDE_KEY = "polyplastics_override"; // only stores admin edits made in-session
+
+// ============================================================
+// STATE
+// ============================================================
+let db = [];
+let editingId = null;
+let adminLoggedIn = false;
+let currentPage = 1;
+let pageSize = 50;
+let filteredCache = [];
+
+// ============================================================
+// BOOT — fetch data.json from repo, fallback to localStorage
+// ============================================================
+async function boot() {
+  showLoading(true);
+  try {
+    // 1. Try fetching data.json from the same directory (GitHub Pages / local server)
+    const res = await fetch('data.json?v=' + Date.now()); // cache-bust
+    if (!res.ok) throw new Error('fetch failed');
+    const jsonData = await res.json();
+    if (Array.isArray(jsonData) && jsonData.length > 0) {
+      db = jsonData;
+      // Apply any admin overrides stored in localStorage on top
+      applyOverrides();
+      console.log('[boot] Loaded from data.json:', db.length, 'records');
+      showLoading(false);
+      renderAnalytics();
+      return;
+    }
+  } catch (e) {
+    console.warn('[boot] data.json not available, falling back to localStorage:', e.message);
+  }
+
+  // 2. Fallback: load from localStorage override (admin edits from a previous session)
+  try {
+    const raw = localStorage.getItem(LS_OVERRIDE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        db = parsed;
+        console.log('[boot] Loaded from localStorage fallback:', db.length, 'records');
+        showLoading(false);
+        renderAnalytics();
+        return;
+      }
+    }
+  } catch (e) {}
+
+  // 3. Last resort: empty db with a clear message
+  db = [];
+  console.warn('[boot] No data source available.');
+  showLoading(false);
+  showDataSourceError();
+}
+
+// Apply localStorage overrides (edits/adds/deletes done via admin panel) on top of data.json
+function applyOverrides() {
+  try {
+    const raw = localStorage.getItem(LS_OVERRIDE_KEY);
+    if (!raw) return;
+    const overrides = JSON.parse(raw); // { added: [], updated: {id: rec}, deleted: [id] }
+    if (!overrides) return;
+
+    // Apply deletions
+    if (Array.isArray(overrides.deleted)) {
+      const delSet = new Set(overrides.deleted);
+      db = db.filter(e => !delSet.has(e.id));
+    }
+    // Apply updates
+    if (overrides.updated) {
+      Object.values(overrides.updated).forEach(rec => {
+        const idx = db.findIndex(e => e.id === rec.id);
+        if (idx >= 0) db[idx] = rec;
+      });
+    }
+    // Apply additions
+    if (Array.isArray(overrides.added)) {
+      overrides.added.forEach(rec => {
+        if (!db.find(e => e.id === rec.id)) db.push(rec);
+      });
+    }
+  } catch(e) {}
+}
+
+function getOverrides() {
+  try {
+    const raw = localStorage.getItem(LS_OVERRIDE_KEY);
+    return raw ? JSON.parse(raw) : { added: [], updated: {}, deleted: [] };
+  } catch(e) {
+    return { added: [], updated: {}, deleted: [] };
+  }
+}
+
+function saveOverrides(ov) {
+  try { localStorage.setItem(LS_OVERRIDE_KEY, JSON.stringify(ov)); } catch(e) {}
+}
+
+function showLoading(on) {
+  document.getElementById('loadingOverlay').style.display = on ? 'flex' : 'none';
+}
+
+function showDataSourceError() {
+  const el = document.getElementById('dataSourceError');
+  if (el) el.style.display = 'block';
+}
+
+// ============================================================
+// VIEW SWITCHING
+// ============================================================
+function showView(view) {
+  document.getElementById('employeeView').classList.toggle('hidden', view !== 'employee');
+  document.getElementById('adminView').classList.toggle('visible', view === 'admin');
+  document.getElementById('btnEmployee').classList.toggle('active', view === 'employee');
+  document.getElementById('btnAdmin').classList.toggle('active', view === 'admin');
+  if (view === 'employee') {
+    document.getElementById('adminView').classList.remove('visible');
+    document.getElementById('employeeView').classList.remove('hidden');
+  }
+}
+
+// ============================================================
+// EMPLOYEE LOOKUP
+// ============================================================
+function lookupEmployee() {
+  const raw = document.getElementById('empIdInput').value.trim().toUpperCase();
+  const errEl = document.getElementById('lookupError');
+  const card = document.getElementById('resultCard');
+
+  if (!raw) { errEl.classList.add('visible'); card.classList.remove('visible'); return; }
+
+  const emp = db.find(e => e.id.toUpperCase() === raw);
+  errEl.classList.remove('visible');
+
+  if (!emp) {
+    errEl.classList.add('visible');
+    card.classList.remove('visible');
+    return;
+  }
+
+  const pct1 = emp.sub1 / emp.sub1max * 100;
+  const pct2 = emp.sub2 / emp.sub2max * 100;
+  const overallPct = (pct1 + pct2) / 2;
+
+  document.getElementById('res_name').textContent = emp.name;
+  document.getElementById('res_id').textContent = emp.id;
+  document.getElementById('res_plant').textContent = emp.plant;
+  document.getElementById('res_dept').textContent = emp.dept;
+  document.getElementById('res_sub1name').textContent = emp.sub1name;
+  document.getElementById('res_sub2name').textContent = emp.sub2name;
+  document.getElementById('res_sub1').textContent = emp.sub1;
+  document.getElementById('res_sub1max').textContent = `out of ${emp.sub1max}`;
+  document.getElementById('res_sub2').textContent = emp.sub2;
+  document.getElementById('res_sub2max').textContent = `out of ${emp.sub2max}`;
+  document.getElementById('res_overall').textContent = overallPct.toFixed(1) + '%';
+  document.getElementById('res_overallmax').textContent = 'avg of both subjects';
+
+  document.getElementById('bar_sub1').style.width = '0%';
+  document.getElementById('bar_sub2').style.width = '0%';
+  document.getElementById('bar_overall').style.width = '0%';
+
+  setTimeout(() => {
+    document.getElementById('bar_sub1').style.width = pct1 + '%';
+    document.getElementById('bar_sub2').style.width = pct2 + '%';
+    document.getElementById('bar_overall').style.width = Math.min(overallPct, 100) + '%';
+  }, 100);
+
+  function getGrade(pct) {
+    if (pct >= 90) return { cls: 'excellent', label: 'EXCELLENT — Keep it up' };
+    if (pct >= 80) return { cls: 'verygood',  label: 'VERY GOOD — Work toward Excellent' };
+    if (pct >= 70) return { cls: 'good',      label: 'GOOD — Work toward Very Good' };
+    if (pct >= 60) return { cls: 'fair',      label: 'FAIR — Need Improvement' };
+    return               { cls: 'poor',       label: 'NEED IMPROVEMENT IMMEDIATELY' };
+  }
+  function gradeHTML(pct) {
+    const g = getGrade(pct);
+    return `<div class="status-dot ${g.cls}"></div><span class="status-text ${g.cls}">${g.label}</span>`;
+  }
+
+  document.getElementById('sub1_status').innerHTML = gradeHTML(pct1);
+  document.getElementById('sub2_status').innerHTML = gradeHTML(pct2);
+  document.getElementById('overall_status').innerHTML = gradeHTML(overallPct);
+  card.classList.add('visible');
+  document.getElementById('certBar').style.display = 'flex';
+}
+
+// ============================================================
+// ADMIN LOGIN / LOGOUT
+// ============================================================
+function adminLogin() {
+  const u = document.getElementById('adminUser').value.trim();
+  const p = document.getElementById('adminPass').value.trim();
+  const err = document.getElementById('adminError');
+  if (u === ADMIN_USER && p === ADMIN_PASS) {
+    adminLoggedIn = true;
+    err.classList.remove('visible');
+    document.getElementById('adminLogin').style.display = 'none';
+    document.getElementById('adminDashboard').style.display = 'block';
+    currentPage = 1;
+    updateStats();
+    renderTable();
+  } else {
+    err.classList.add('visible');
+  }
+}
+
+function adminLogout() {
+  adminLoggedIn = false;
+  document.getElementById('adminLogin').style.display = 'block';
+  document.getElementById('adminDashboard').style.display = 'none';
+  document.getElementById('adminUser').value = '';
+  document.getElementById('adminPass').value = '';
+}
+
+// ============================================================
+// STATS
+// ============================================================
+function updateStats() {
+  const total = db.length;
+  const avgPct = total ? Math.round(db.reduce((s, e) => s + (e.sub1/e.sub1max + e.sub2/e.sub2max) / 2 * 100, 0) / total) : 0;
+  const excellent = db.filter(e => (e.sub1/e.sub1max + e.sub2/e.sub2max) / 2 * 100 >= 90).length;
+  const excellentRate = total ? Math.round(excellent / total * 100) : 0;
+  document.getElementById('stat_total').textContent = total;
+  document.getElementById('stat_avg').textContent = avgPct + '%';
+  document.getElementById('stat_pass').textContent = excellentRate + '%';
+}
+
+// ============================================================
+// FILTERING
+// ============================================================
+function getFiltered() {
+  const q = (document.getElementById('searchInput').value || '').toUpperCase().trim();
+  const plant = (document.getElementById('filterPlant').value || '').toUpperCase().trim();
+  const dept = (document.getElementById('filterDept').value || '').toUpperCase().trim();
+  const result = (document.getElementById('filterResult').value || '').toLowerCase();
+  return db.filter(e => {
+    const matchQ = !q || e.id.includes(q) || e.name.includes(q) || e.plant.includes(q) || e.dept.includes(q);
+    const matchPlant = !plant || e.plant.includes(plant);
+    const matchDept = !dept || e.dept.includes(dept);
+    const pct = (e.sub1/e.sub1max + e.sub2/e.sub2max) / 2 * 100;
+    const grade = pct >= 90 ? 'excellent' : pct >= 80 ? 'verygood' : pct >= 70 ? 'good' : pct >= 60 ? 'fair' : 'poor';
+    const matchResult = !result || grade === result;
+    return matchQ && matchPlant && matchDept && matchResult;
+  });
+}
+
+function onFilterChange() { currentPage = 1; renderTable(); }
+function setPageSize(v) { pageSize = parseInt(v); currentPage = 1; renderTable(); }
+
+// ============================================================
+// TABLE RENDER (paginated)
+// ============================================================
+function renderTable() {
+  filteredCache = getFiltered();
+  const total = filteredCache.length;
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  if (currentPage > totalPages) currentPage = totalPages;
+
+  const start = (currentPage - 1) * pageSize;
+  const end = Math.min(start + pageSize, total);
+  const pageData = filteredCache.slice(start, end);
+
+  document.getElementById('stat_showing').textContent = total;
+  document.getElementById('tableInfo').textContent =
+    total === 0 ? 'No records found' : `Showing ${start+1}–${end} of ${total} records`;
+
+  const tbody = document.getElementById('tableBody');
+  if (!pageData.length) {
+    tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;color:var(--text-muted);padding:28px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;">NO RECORDS FOUND</td></tr>`;
+  } else {
+    tbody.innerHTML = pageData.map((e, idx) => {
+      const pct1 = e.sub1 / e.sub1max * 100;
+      const pct2 = e.sub2 / e.sub2max * 100;
+      const overallPct = (pct1 + pct2) / 2;
+      let grade, gradeColor;
+      if (overallPct >= 90)      { grade = 'EXCELLENT';          gradeColor = '#22c55e'; }
+      else if (overallPct >= 80) { grade = 'VERY GOOD';          gradeColor = '#84cc16'; }
+      else if (overallPct >= 70) { grade = 'GOOD';               gradeColor = '#f0a500'; }
+      else if (overallPct >= 60) { grade = 'FAIR';               gradeColor = '#f97316'; }
+      else                       { grade = 'NEED IMPROVEMENT';   gradeColor = 'var(--red)'; }
+      return `<tr>
+        <td style="color:var(--text-muted);font-size:10px;">${start + idx + 1}</td>
+        <td style="color:var(--accent)">${e.id}</td>
+        <td>${e.name}</td>
+        <td>${e.plant}</td>
+        <td>${e.dept}</td>
+        <td>${e.sub1}/${e.sub1max} (${pct1.toFixed(0)}%)</td>
+        <td>${e.sub2}/${e.sub2max} (${pct2.toFixed(0)}%)</td>
+        <td style="font-weight:600">${overallPct.toFixed(1)}%</td>
+        <td><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:${gradeColor}">${grade}</span></td>
+        <td><div class="table-actions">
+          <button class="tbl-btn edit" onclick="openEditModal('${e.id}')">Edit</button>
+          <button class="tbl-btn delete" onclick="deleteEmployee('${e.id}')">Del</button>
+        </div></td>
+      </tr>`;
+    }).join('');
+  }
+  renderPagination(totalPages);
+}
+
+function renderPagination(totalPages) {
+  const bar = document.getElementById('paginationBar');
+  if (totalPages <= 1) { bar.innerHTML = ''; return; }
+  let html = `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>← Prev</button>`;
+  const pages = [];
+  if (totalPages <= 9) { for (let i=1;i<=totalPages;i++) pages.push(i); }
+  else {
+    pages.push(1);
+    if (currentPage > 4) pages.push('…');
+    for (let i=Math.max(2,currentPage-2);i<=Math.min(totalPages-1,currentPage+2);i++) pages.push(i);
+    if (currentPage < totalPages-3) pages.push('…');
+    pages.push(totalPages);
+  }
+  pages.forEach(p => {
+    if (p === '…') html += `<span style="color:var(--text-muted);padding:0 4px;">…</span>`;
+    else html += `<button class="page-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
+  });
+  html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>Next →</button>`;
+  bar.innerHTML = html;
+}
+
+function goPage(p) {
+  const totalPages = Math.ceil(filteredCache.length / pageSize);
+  if (p < 1 || p > totalPages) return;
+  currentPage = p;
+  renderTable();
+  document.getElementById('dataTable').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ============================================================
+// MODAL — ADD / EDIT
+// ============================================================
+function openAddModal() {
+  editingId = null;
+  document.getElementById('modalTitle').textContent = 'ADD EMPLOYEE';
+  document.getElementById('modalSaveBtn').textContent = 'SAVE RECORD';
+  ['m_id','m_name','m_plant','m_dept','m_sub1name','m_sub2name'].forEach(id => document.getElementById(id).value = '');
+  ['m_sub1','m_sub2'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('m_sub1max').value = 100;
+  document.getElementById('m_sub2max').value = 100;
+  document.getElementById('m_pass').value = 50;
+  document.getElementById('m_id').disabled = false;
+  document.getElementById('modalError').classList.remove('visible');
+  document.getElementById('modal').classList.add('visible');
+}
+
+function openEditModal(id) {
+  const e = db.find(x => x.id === id);
+  if (!e) return;
+  editingId = id;
+  document.getElementById('modalTitle').textContent = 'EDIT EMPLOYEE';
+  document.getElementById('modalSaveBtn').textContent = 'UPDATE RECORD';
+  document.getElementById('m_id').value = e.id; document.getElementById('m_id').disabled = true;
+  document.getElementById('m_name').value = e.name;
+  document.getElementById('m_plant').value = e.plant;
+  document.getElementById('m_dept').value = e.dept;
+  document.getElementById('m_sub1name').value = e.sub1name;
+  document.getElementById('m_sub1').value = e.sub1;
+  document.getElementById('m_sub1max').value = e.sub1max;
+  document.getElementById('m_sub2name').value = e.sub2name;
+  document.getElementById('m_sub2').value = e.sub2;
+  document.getElementById('m_sub2max').value = e.sub2max;
+  document.getElementById('m_pass').value = e.pass;
+  document.getElementById('modalError').classList.remove('visible');
+  document.getElementById('modal').classList.add('visible');
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('visible'); }
+
+function saveEmployee() {
+  const id = document.getElementById('m_id').value.trim().toUpperCase();
+  const name = document.getElementById('m_name').value.trim().toUpperCase();
+  const plant = document.getElementById('m_plant').value.trim().toUpperCase();
+  const dept = document.getElementById('m_dept').value.trim().toUpperCase();
+  const sub1name = document.getElementById('m_sub1name').value.trim().toUpperCase() || 'SUBJECT 1';
+  const sub2name = document.getElementById('m_sub2name').value.trim().toUpperCase() || 'SUBJECT 2';
+  const sub1 = parseFloat(document.getElementById('m_sub1').value);
+  const sub1max = parseFloat(document.getElementById('m_sub1max').value) || 100;
+  const sub2 = parseFloat(document.getElementById('m_sub2').value);
+  const sub2max = parseFloat(document.getElementById('m_sub2max').value) || 100;
+  const pass = parseFloat(document.getElementById('m_pass').value) || 50;
+  const err = document.getElementById('modalError');
+
+  if (!id || !name || !plant || isNaN(sub1) || isNaN(sub2)) {
+    err.textContent = '⚠ Please fill in all required fields.';
+    err.classList.add('visible'); return;
+  }
+  if (!editingId && db.find(e => e.id === id)) {
+    err.textContent = '⚠ Employee ID already exists.';
+    err.classList.add('visible'); return;
+  }
+  err.classList.remove('visible');
+
+  const rec = { id, name, plant, dept, sub1name, sub1, sub1max, sub2name, sub2, sub2max, pass };
+  const ov = getOverrides();
+
+  if (editingId) {
+    const idx = db.findIndex(e => e.id === editingId);
+    db[idx] = rec;
+    ov.updated[id] = rec;
+    // Remove from added if it was a new entry
+  } else {
+    db.push(rec);
+    ov.added.push(rec);
+  }
+
+  saveOverrides(ov);
+  closeModal();
+  updateStats();
+  renderTable();
+  showNotif(editingId ? 'Record updated.' : 'Employee added.');
+}
+
+function deleteEmployee(id) {
+  if (!confirm(`Delete record for ${id}?`)) return;
+  db = db.filter(e => e.id !== id);
+  const ov = getOverrides();
+  ov.deleted.push(id);
+  // Also remove from added/updated if present
+  ov.added = ov.added.filter(r => r.id !== id);
+  delete ov.updated[id];
+  saveOverrides(ov);
+  updateStats();
+  renderTable();
+  showNotif('Record deleted.', true);
+}
+
+function clearAllData() {
+  if (!confirm('⚠ This clears ALL records from the current view. Are you sure?')) return;
+  if (!confirm('Second confirmation: Clear all ' + db.length + ' records?')) return;
+  db = [];
+  // Mark all as deleted in overrides
+  const ov = { added: [], updated: {}, deleted: ['__ALL__'] };
+  saveOverrides(ov);
+  updateStats();
+  renderTable();
+  showNotif('All records cleared (this session only).', true);
+}
+
+// ============================================================
+// CSV IMPORT — merge or replace (updates data.json export too)
+// ============================================================
+function importCSV(event, mode) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (mode === 'replace') {
+    const ok = confirm(`⚠ REPLACE DATA: This will delete ALL ${db.length} existing records and load the CSV.\n\nTo make this permanent across all devices, also download the new data.json when prompted.\n\nProceed?`);
+    if (!ok) { event.target.value = ''; return; }
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const lines = e.target.result.split('\n').map(l => l.trim()).filter(Boolean);
+    if (lines.length < 2) { showNotif('CSV is empty or invalid.', true); return; }
+    const newRecords = [];
+    let skipped = 0;
+    for (let i = 1; i < lines.length; i++) {
+      const cols = lines[i].split(',').map(c => c.trim());
+      if (cols.length < 8) { skipped++; continue; }
+      const [emp_id, name, plant_code, department, sub1_name, sub1_score, sub1_max, sub2_name, sub2_score, sub2_max, pass_mark] = cols;
+      if (!emp_id || !name) { skipped++; continue; }
+      newRecords.push({
+        id: emp_id.toUpperCase(), name: name.toUpperCase(),
+        plant: (plant_code||'').toUpperCase(), dept: (department||'').toUpperCase(),
+        sub1name: (sub1_name||'SUBJECT 1').toUpperCase(), sub1: parseFloat(sub1_score)||0, sub1max: parseFloat(sub1_max)||100,
+        sub2name: (sub2_name||'SUBJECT 2').toUpperCase(), sub2: parseFloat(sub2_score)||0, sub2max: parseFloat(sub2_max)||100,
+        pass: parseFloat(pass_mark)||50
+      });
+    }
+
+    if (mode === 'replace') {
+      db = newRecords;
+      // Save as full override
+      const ov = { added: newRecords, updated: {}, deleted: ['__ALL__'] };
+      saveOverrides(ov);
+      updateStats(); currentPage = 1; renderTable();
+      showNotif(`Replaced with ${newRecords.length} records.${skipped?' '+skipped+' skipped.':''} Download new data.json to make permanent.`);
+      setTimeout(() => downloadDataJSON(), 1000);
+    } else {
+      let added = 0, updated = 0;
+      const ov = getOverrides();
+      newRecords.forEach(rec => {
+        const existing = db.findIndex(e => e.id === rec.id);
+        if (existing >= 0) { db[existing] = rec; ov.updated[rec.id] = rec; updated++; }
+        else { db.push(rec); ov.added.push(rec); added++; }
+      });
+      saveOverrides(ov);
+      updateStats(); currentPage = 1; renderTable();
+      showNotif(`${added} added, ${updated} updated.${skipped?' '+skipped+' skipped.':''}`);
+    }
+    event.target.value = '';
+  };
+  reader.readAsText(file);
+}
+
+// ============================================================
+// EXPORT CSV
+// ============================================================
+function exportCSV() {
+  const header = 'emp_id,name,plant_code,department,sub1_name,sub1_score,sub1_max,sub2_name,sub2_score,sub2_max,pass_mark';
+  const rows = db.map(e => [e.id,e.name,e.plant,e.dept,e.sub1name,e.sub1,e.sub1max,e.sub2name,e.sub2,e.sub2max,e.pass].join(','));
+  const csv = [header, ...rows].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'polyplastics_results.csv';
+  a.click();
+  showNotif(`CSV exported: ${db.length} records.`);
+}
+
+// ============================================================
+// DOWNLOAD data.json (to replace in GitHub repo)
+// ============================================================
+function downloadDataJSON() {
+  const json = JSON.stringify(db, null, 2);
+  const a = document.createElement('a');
+  a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(json);
+  a.download = 'data.json';
+  a.click();
+  showNotif('data.json downloaded — upload this file to your GitHub repo to make changes permanent.');
+}
+
+// ============================================================
+// NOTIFICATIONS
+// ============================================================
+let notifTimer = null;
+function showNotif(msg, isError = false) {
+  const el = document.getElementById('notif');
+  el.textContent = isError ? '⚠ ' + msg : '✓ ' + msg;
+  el.className = 'notif visible' + (isError ? ' error' : '');
+  if (notifTimer) clearTimeout(notifTimer);
+  notifTimer = setTimeout(() => el.classList.remove('visible'), 5000);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+
+// ============================================================
+// GRADE HELPER
+// ============================================================
+function calcOverallPct(e) {
+  return (e.sub1/e.sub1max + e.sub2/e.sub2max) / 2 * 100;
+}
+function getGradeInfo(pct) {
+  if (pct >= 90) return { key:'excellent', label:'EXCELLENT',         msg:'Keep it up',            color:'#22c55e' };
+  if (pct >= 80) return { key:'verygood',  label:'VERY GOOD',         msg:'Work toward Excellent', color:'#84cc16' };
+  if (pct >= 70) return { key:'good',      label:'GOOD',              msg:'Work toward Very Good', color:'#f0a500' };
+  if (pct >= 60) return { key:'fair',      label:'FAIR',              msg:'Need Improvement',      color:'#f97316' };
+  return               { key:'poor',       label:'NEED IMPROVEMENT',  msg:'Immediately',           color:'#ef4444' };
+}
+
+// ============================================================
+// ANALYTICS RENDER
+// ============================================================
+function renderAnalytics() {
+  if (!db.length) return;
+
+  const gradeKeys = ['excellent','verygood','good','fair','poor'];
+
+  // helper: count by group key
+  function buildMap(groupFn) {
+    const map = {};
+    db.forEach(emp => {
+      const key = groupFn(emp) || '—';
+      if (!map[key]) map[key] = {excellent:0,verygood:0,good:0,fair:0,poor:0,total:0};
+      map[key][getGradeInfo(calcOverallPct(emp)).key]++;
+      map[key].total++;
+    });
+    return map;
+  }
+
+  function renderDistTable(tbodyId, tfootId, badgeId, map) {
+    const rows   = Object.entries(map).sort((a,b)=>a[0].localeCompare(b[0]));
+    const totals = {excellent:0,verygood:0,good:0,fair:0,poor:0,total:0};
+    rows.forEach(([,c])=>gradeKeys.forEach(g=>{totals[g]+=c[g];totals.total+=0;}) );
+    totals.total = db.length; // will recompute properly below
+    // actually recount
+    gradeKeys.forEach(g=> { totals[g]=0; rows.forEach(([,c])=>{ totals[g]+=c[g]; }); });
+    totals.total = rows.reduce((s,[,c])=>s+c.total, 0);
+
+    const colors = {excellent:'#22c55e',verygood:'#84cc16',good:'#f0a500',fair:'#f97316',poor:'#ef4444'};
+    document.getElementById(tbodyId).innerHTML = rows.map(([key, c]) =>
+      `<tr>
+        <td>${key}</td>
+        ${gradeKeys.map(g=>`<td style="color:${colors[g]};font-weight:${c[g]?'700':'400'}">${c[g]||'—'}</td>`).join('')}
+        <td style="color:var(--accent);font-weight:700">${c.total}</td>
+      </tr>`
+    ).join('');
+
+    document.getElementById(tfootId).innerHTML =
+      `<td>TOTAL</td>${gradeKeys.map(g=>`<td>${totals[g]}</td>`).join('')}<td>${totals.total}</td>`;
+
+    if (badgeId) document.getElementById(badgeId).textContent = rows.length + (badgeId.includes('plant')?' Plants':' Depts');
+  }
+
+  renderDistTable('plantTbody','plantTfoot','plantBadge', buildMap(e=>e.plant));
+  renderDistTable('deptTbody', 'deptTfoot', 'deptBadge',  buildMap(e=>e.dept));
+
+  // ── Department Toppers ──
+  const depts = [...new Set(db.map(e=>e.dept))].sort();
+  const medals = ['🥇','🥈','🥉'];
+
+  const cards = depts.map(dept => {
+    const members = db.filter(e=>e.dept===dept);
+    // top 1 by overall pct
+    const sorted = members.slice().sort((a,b)=>calcOverallPct(b)-calcOverallPct(a));
+    const top = sorted[0];
+    if (!top) return '';
+    const pct = calcOverallPct(top);
+    const grade = getGradeInfo(pct);
+    return `<div class="topper-card">
+      <div class="topper-rank">🏆 Dept. Topper</div>
+      <div class="topper-dept">${dept}</div>
+      <div class="topper-name">${top.name}</div>
+      <div class="topper-meta">${top.id} &nbsp;|&nbsp; ${top.plant}</div>
+      <div class="topper-score">
+        <div class="topper-score-big">${pct.toFixed(1)}%</div>
+        <div>
+          <span class="grade-pill ${grade.key}">${grade.label}</span><br>
+          <span class="topper-score-sub">${top.sub1name}: ${top.sub1}/${top.sub1max} &nbsp; ${top.sub2name}: ${top.sub2}/${top.sub2max}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('topperGrid').innerHTML = cards;
+}
+
+// ============================================================
+// CERTIFICATE DOWNLOAD (opens print-ready window)
+// ============================================================
+function downloadCertificate() {
+  const name    = document.getElementById('res_name').textContent;
+  const empId   = document.getElementById('res_id').textContent;
+  const plant   = document.getElementById('res_plant').textContent;
+  const dept    = document.getElementById('res_dept').textContent;
+  const sub1n   = document.getElementById('res_sub1name').textContent;
+  const sub2n   = document.getElementById('res_sub2name').textContent;
+  const sub1v   = document.getElementById('res_sub1').textContent;
+  const sub1mx  = document.getElementById('res_sub1max').textContent;
+  const sub2v   = document.getElementById('res_sub2').textContent;
+  const sub2mx  = document.getElementById('res_sub2max').textContent;
+  const overall = document.getElementById('res_overall').textContent;
+  const ovPct   = parseFloat(overall) || 0;
+  const grade   = getGradeInfo(ovPct);
+  const today   = new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+  const year    = new Date().getFullYear();
+
+  // Accent colour per grade
+  const accentMap = {
+    excellent: '#0369a1',
+    verygood:  '#166534',
+    good:      '#92400e',
+    fair:      '#9a3412',
+    poor:      '#991b1b'
+  };
+  const accent = accentMap[grade.key] || '#0369a1';
+  const accentLight = grade.color; // the brighter shade for highlights
+
+  const certHTML = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>Certificate – ${name}</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size:A4 landscape; margin:0; }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{
+    width:297mm; height:210mm;
+    font-family:'IBM Plex Sans',sans-serif;
+    background:#fff; overflow:hidden; position:relative;
+  }
+
+  /* ── Outer wrapper keeps ALL content inside borders ── */
+  .cert-wrap{
+    position:absolute;
+    inset:11mm;
+    display:flex; flex-direction:column;
+    overflow:hidden;
+  }
+
+  /* ── Decorative border system (purely decorative, z-index above content) ── */
+  .border-outer{ position:absolute; inset:6mm; border:2.5px solid ${accent}; pointer-events:none; z-index:10; }
+  .border-inner{ position:absolute; inset:9mm; border:0.75px solid ${accentLight}; pointer-events:none; z-index:10; }
+  /* corner ornaments */
+  .corner{ position:absolute; width:12mm; height:12mm; z-index:11; }
+  .corner.tl{ top:3mm; left:3mm; border-top:5px solid ${accent}; border-left:5px solid ${accent}; }
+  .corner.tr{ top:3mm; right:3mm; border-top:5px solid ${accent}; border-right:5px solid ${accent}; }
+  .corner.bl{ bottom:3mm; left:3mm; border-bottom:5px solid ${accent}; border-left:5px solid ${accent}; }
+  .corner.br{ bottom:3mm; right:3mm; border-bottom:5px solid ${accent}; border-right:5px solid ${accent}; }
+
+  /* ── Header band ── */
+  .header{
+    background:${accent};
+    padding:4mm 10mm;
+    display:flex; align-items:center; justify-content:space-between;
+    flex-shrink:0;
+  }
+  .header-brand{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:22pt; letter-spacing:6px;
+    color:#fff; line-height:1;
+  }
+  .header-right{ text-align:right; color:rgba(255,255,255,0.85); }
+  .cert-type{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:8pt; letter-spacing:3px; font-weight:600; text-transform:uppercase;
+  }
+  .cert-ref{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:6.5pt; margin-top:1mm; letter-spacing:1px; opacity:0.7;
+  }
+
+  /* ── Body ── */
+  .body{ padding:4mm 10mm 3mm; flex:1; display:flex; flex-direction:column; }
+
+  .cert-intro{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:7pt; letter-spacing:3px; text-transform:uppercase; color:#777; margin-bottom:1mm;
+  }
+  .cert-heading{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:20pt; letter-spacing:5px;
+    color:${accent}; line-height:1; margin-bottom:3mm;
+  }
+  .presented{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:8.5pt; color:#555; margin-bottom:1mm; font-style:italic;
+  }
+  .emp-name{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:26pt; letter-spacing:3px;
+    color:${accent}; line-height:1; margin-bottom:1mm;
+  }
+  .emp-id{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:7.5pt; letter-spacing:2px; color:#888; margin-bottom:3mm;
+  }
+
+  /* ── Info row ── */
+  .info-row{ display:flex; gap:0; margin-bottom:3mm; border:1px solid #e0e0e0; flex-shrink:0; }
+  .info-cell{ flex:1; padding:2.5mm 4mm; border-right:1px solid #e0e0e0; }
+  .info-cell:last-child{ border-right:none; }
+  .info-lbl{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:5.5pt; color:#aaa; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:0.5mm;
+  }
+  .info-val{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:8.5pt; font-weight:600; color:#222;
+  }
+
+  /* ── Score band ── */
+  .score-band{
+    display:flex; align-items:stretch;
+    background:${accent}; margin-bottom:3mm; flex-shrink:0;
+  }
+  .score-cell-cert{ flex:1; text-align:center; color:#fff; padding:3mm 2mm; border-right:1px solid rgba(255,255,255,0.2); }
+  .score-cell-cert:last-child{ border-right:none; }
+  .sc-big{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:20pt; line-height:1;
+  }
+  .sc-sub{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:5.5pt; letter-spacing:2px; opacity:0.75; text-transform:uppercase; margin-top:1mm;
+  }
+  .grade-cell{ flex:1.4; text-align:center; padding:3mm 2mm; }
+  .grade-badge-cert{
+    display:inline-block; background:${accentLight}; color:#fff;
+    padding:1.5mm 5mm;
+    font-family:'Bebas Neue',sans-serif;
+    font-size:10pt; letter-spacing:2px; margin-bottom:1mm;
+  }
+  .grade-msg-cert{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:5.5pt; opacity:0.8; letter-spacing:1px; color:#fff;
+  }
+
+  /* ── Footer signatures ── */
+  .footer{ display:flex; justify-content:space-between; align-items:flex-end; padding:0 6mm; flex-shrink:0; margin-top:auto; }
+  .sig{ text-align:center; width:58mm; }
+  .sig-line{ border-top:1.5px solid #555; margin-bottom:1.5mm; }
+  .sig-name{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:7.5pt; color:#222; font-weight:600; letter-spacing:0.5px;
+  }
+  .sig-title{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:6pt; color:#777; letter-spacing:0.5px; margin-top:0.5mm;
+  }
+  .seal-centre{ text-align:center; }
+  .seal-circle{
+    width:20mm; height:20mm; border-radius:50%;
+    border:2px solid ${accent};
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 1.5mm;
+  }
+  .seal-text-inner{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:6.5pt; letter-spacing:1.5px; color:${accent};
+  }
+  .seal-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:5.5pt; letter-spacing:2px; color:${accent}; text-transform:uppercase;
+  }
+  .seal-date{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:6pt; color:#888; margin-top:1mm;
+  }
+</style></head><body>
+
+  <!-- Borders stay behind content via z-index -->
+  <div class="border-outer"></div>
+  <div class="border-inner"></div>
+  <div class="corner tl"></div><div class="corner tr"></div>
+  <div class="corner bl"></div><div class="corner br"></div>
+
+  <!-- ALL content lives inside cert-wrap, fully within the border inset -->
+  <div class="cert-wrap">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header-brand">POLYPLASTICS</div>
+      <div class="header-right">
+        <div class="cert-type">Assessment Certificate</div>
+        <div class="cert-ref">Emp ID: ${empId} &nbsp;·&nbsp; Date: ${today}</div>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="body">
+      <div class="cert-intro">POLYPLASTICS Industries India Pvt. Ltd. — Annual Training Assessment ${year}</div>
+      <div class="cert-heading">CERTIFICATE OF ASSESSMENT</div>
+
+      <p class="presented">This is to certify that</p>
+      <div class="emp-name">${name}</div>
+      <div class="emp-id">Employee ID: ${empId}</div>
+
+      <!-- Info row -->
+      <div class="info-row">
+        <div class="info-cell">
+          <div class="info-lbl">Plant / Location</div>
+          <div class="info-val">${plant}</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-lbl">Department</div>
+          <div class="info-val">${dept}</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-lbl">${sub1n}</div>
+          <div class="info-val">${sub1v} <span style="font-weight:400;color:#888;font-size:7.5pt;">${sub1mx}</span></div>
+        </div>
+        <div class="info-cell">
+          <div class="info-lbl">${sub2n}</div>
+          <div class="info-val">${sub2v} <span style="font-weight:400;color:#888;font-size:7.5pt;">${sub2mx}</span></div>
+        </div>
+      </div>
+
+      <!-- Score band -->
+      <div class="score-band">
+        <div class="score-cell-cert">
+          <div class="sc-big">${sub1v}</div>
+          <div class="sc-sub">${sub1n}</div>
+        </div>
+        <div class="score-cell-cert">
+          <div class="sc-big">${sub2v}</div>
+          <div class="sc-sub">${sub2n}</div>
+        </div>
+        <div class="score-cell-cert">
+          <div class="sc-big">${overall}</div>
+          <div class="sc-sub">Overall Avg</div>
+        </div>
+        <div class="score-cell-cert grade-cell">
+          <div class="grade-badge-cert">${grade.label}</div>
+          <div class="grade-msg-cert">${grade.msg}</div>
+        </div>
+      </div>
+
+      <!-- Signatures -->
+      <div class="footer">
+        <div class="sig">
+          <div class="sig-line"></div>
+          <div class="sig-name">Head - QMS</div>
+          <div class="sig-title">Quality Management System</div>
+        </div>
+        <div class="seal-centre">
+          <div class="seal-circle">
+            <div class="seal-text-inner">POLYPLASTICS</div>
+          </div>
+          <div class="seal-label">Official Seal</div>
+          <div class="seal-date">${today}</div>
+        </div>
+        <div class="sig">
+          <div class="sig-line"></div>
+          <div class="sig-name">Jt Managing Director</div>
+          <div class="sig-title">Polyplastics Industries India Pvt. Ltd.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cert-wrap -->
+
+<script>window.onload=()=>setTimeout(()=>{ window.print(); },500);<\/script>
+</body></html>`;
+
+  const w = window.open('','_blank','width=1122,height=794');
+  if (!w) { alert('Please allow pop-ups to download the certificate.'); return; }
+  w.document.write(certHTML);
+  w.document.close();
+}
+
+boot();
+</script>
+</body>
+</html>
