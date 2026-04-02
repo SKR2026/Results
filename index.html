@@ -1483,7 +1483,11 @@ function downloadCertificate() {
   }
   .emp-id{
     font-family:'IBM Plex Mono',monospace;
-    font-size:7.5pt; letter-spacing:2px; color:#888; margin-bottom:3mm;
+    font-size:7.5pt; letter-spacing:2px; color:#888; margin-bottom:2mm;
+  }
+  .cert-participation{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:8.5pt; color:#444; margin-bottom:3mm; font-style:italic;
   }
 
   /* ── Info row ── */
@@ -1599,6 +1603,7 @@ function downloadCertificate() {
       <p class="presented">This is to certify that</p>
       <div class="emp-name">${name}</div>
       <div class="emp-id">Employee ID: ${empId}</div>
+      <p class="cert-participation">has successfully participated in the assessment and has secured marks as detailed below:</p>
 
       <!-- Info row -->
       <div class="info-row">
