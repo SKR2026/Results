@@ -255,7 +255,7 @@
     "sub1": 70,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 70,
     "sub2max": 100,
     "pass": 50
   },
@@ -320,7 +320,7 @@
     "sub1": 34,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 34,
     "sub2max": 100,
     "pass": 50
   },
@@ -437,7 +437,7 @@
     "sub1": 50,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 50,
     "sub2max": 100,
     "pass": 50
   },
@@ -567,7 +567,7 @@
     "sub1": 60,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 60,
     "sub2max": 100,
     "pass": 50
   },
@@ -1139,7 +1139,7 @@
     "sub1": 32,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 32,
     "sub2max": 100,
     "pass": 50
   },
@@ -1308,7 +1308,7 @@
     "sub1": 60,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 60,
     "sub2max": 100,
     "pass": 50
   },
@@ -1698,7 +1698,7 @@
     "sub1": 46,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 46,
     "sub2max": 100,
     "pass": 50
   },
@@ -1828,7 +1828,7 @@
     "sub1": 24,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 24,
     "sub2max": 100,
     "pass": 50
   },
@@ -2140,7 +2140,7 @@
     "sub1": 62,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 62,
     "sub2max": 100,
     "pass": 50
   },
@@ -2413,7 +2413,7 @@
     "sub1": 42,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 42,
     "sub2max": 100,
     "pass": 50
   },
@@ -2621,7 +2621,7 @@
     "sub1": 64,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 64,
     "sub2max": 100,
     "pass": 50
   },
@@ -2712,7 +2712,7 @@
     "sub1": 44,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 44,
     "sub2max": 100,
     "pass": 50
   },
@@ -2764,7 +2764,7 @@
     "sub1": 38,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 38,
     "sub2max": 100,
     "pass": 50
   },
@@ -2881,7 +2881,7 @@
     "sub1": 64,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 64,
     "sub2max": 100,
     "pass": 50
   },
@@ -3037,7 +3037,7 @@
     "sub1": 42,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 42,
     "sub2max": 100,
     "pass": 50
   },
@@ -3245,7 +3245,7 @@
     "sub1": 56,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 56,
     "sub2max": 100,
     "pass": 50
   },
@@ -3297,7 +3297,7 @@
     "sub1": 62,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 62,
     "sub2max": 100,
     "pass": 50
   },
@@ -3323,7 +3323,7 @@
     "sub1": 48,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 48,
     "sub2max": 100,
     "pass": 50
   },
@@ -3401,7 +3401,7 @@
     "sub1": 46,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 46,
     "sub2max": 100,
     "pass": 50
   },
@@ -4311,7 +4311,7 @@
     "sub1": 44,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 44,
     "sub2max": 100,
     "pass": 50
   },
@@ -4415,7 +4415,7 @@
     "sub1": 58,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 58,
     "sub2max": 100,
     "pass": 50
   },
@@ -4935,7 +4935,7 @@
     "sub1": 28,
     "sub1max": 100,
     "sub2name": "SUBJECT 2",
-    "sub2": 0,
+    "sub2": 28,
     "sub2max": 100,
     "pass": 50
   },
