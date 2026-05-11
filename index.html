@@ -6,6 +6,7 @@
 <title>POLYPLASTICS — Employee Result Portal</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+  /* ═══════════════ THEME DEFINITIONS ═══════════════ */
   :root {
     --bg: #0d0f12;
     --surface: #13161b;
@@ -21,6 +22,100 @@
     --red: #ef4444;
     --blue: #3b82f6;
   }
+
+  /* AMBER (default) */
+  [data-theme="amber"] {
+    --bg: #0d0f12; --surface: #13161b; --surface2: #1a1e25;
+    --border: #252a33; --border-bright: #3a4151;
+    --accent: #f0a500; --accent2: #e05a00;
+    --text: #e8eaf0; --text-muted: #6b7280; --text-dim: #9ca3af;
+    --green: #22c55e; --red: #ef4444; --blue: #3b82f6;
+    --theme-label: "🟡 Amber";
+  }
+
+  /* EMERALD */
+  [data-theme="emerald"] {
+    --bg: #071210; --surface: #0d1f1c; --surface2: #132c27;
+    --border: #1c3d37; --border-bright: #2d5e55;
+    --accent: #10b981; --accent2: #059669;
+    --text: #d1fae5; --text-muted: #6b9e93; --text-dim: #8db8b0;
+    --green: #34d399; --red: #f87171; --blue: #60a5fa;
+    --theme-label: "🟢 Emerald";
+  }
+
+  /* VIOLET */
+  [data-theme="violet"] {
+    --bg: #0e0a1a; --surface: #16112a; --surface2: #1e1838;
+    --border: #2e2650; --border-bright: #4a3d7a;
+    --accent: #8b5cf6; --accent2: #7c3aed;
+    --text: #ede9fe; --text-muted: #7c6fa0; --text-dim: #a89ec0;
+    --green: #a78bfa; --red: #f87171; --blue: #60a5fa;
+    --theme-label: "🟣 Violet";
+  }
+
+  /* ROSE */
+  [data-theme="rose"] {
+    --bg: #130a0d; --surface: #1f0f14; --surface2: #2d161c;
+    --border: #3d1e27; --border-bright: #5e3040;
+    --accent: #f43f5e; --accent2: #e11d48;
+    --text: #ffe4e6; --text-muted: #9e6c75; --text-dim: #c08a92;
+    --green: #34d399; --red: #fb923c; --blue: #60a5fa;
+    --theme-label: "🔴 Rose";
+  }
+
+  /* CYAN */
+  [data-theme="cyan"] {
+    --bg: #050f14; --surface: #091820; --surface2: #0f2230;
+    --border: #163040; --border-bright: #255068;
+    --accent: #06b6d4; --accent2: #0891b2;
+    --text: #cffafe; --text-muted: #5e9aaa; --text-dim: #7fb5c3;
+    --green: #34d399; --red: #f87171; --blue: #38bdf8;
+    --theme-label: "🔵 Cyan";
+  }
+
+  /* SOLAR (light) */
+  [data-theme="solar"] {
+    --bg: #fdf6e3; --surface: #eee8d5; --surface2: #f5efdc;
+    --border: #ccc4aa; --border-bright: #b5ae98;
+    --accent: #cb4b16; --accent2: #d33682;
+    --text: #073642; --text-muted: #657b83; --text-dim: #586e75;
+    --green: #2aa198; --red: #dc322f; --blue: #268bd2;
+    --theme-label: "☀️ Solar";
+  }
+
+  /* ═══════════════ THEME SWITCHER UI ═══════════════ */
+  .theme-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 16px; font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: 2px;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .theme-bar-label {
+    color: var(--text-muted); text-transform: uppercase; margin-right: 4px;
+    white-space: nowrap;
+  }
+
+  .theme-dot {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 2px solid transparent; cursor: pointer;
+    transition: transform 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+  }
+  .theme-dot:hover { transform: scale(1.2); }
+  .theme-dot.active { border-color: var(--text); transform: scale(1.15); }
+
+  .theme-dot[data-t="amber"]  { background: linear-gradient(135deg, #f0a500, #e05a00); }
+  .theme-dot[data-t="emerald"]{ background: linear-gradient(135deg, #10b981, #059669); }
+  .theme-dot[data-t="violet"] { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+  .theme-dot[data-t="rose"]   { background: linear-gradient(135deg, #f43f5e, #e11d48); }
+  .theme-dot[data-t="cyan"]   { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+  .theme-dot[data-t="solar"]  { background: linear-gradient(135deg, #fdf6e3, #cb4b16); }
+
+  /* Push content below the theme bar */
+  body { padding-top: 38px; }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -361,7 +456,18 @@
   .btn-cert:hover { opacity:0.85; }
 </style>
 </head>
-<body>
+<body data-theme="amber">
+
+<!-- ══════════ THEME SWITCHER ══════════ -->
+<div class="theme-bar">
+  <span class="theme-bar-label">Theme:</span>
+  <span class="theme-dot active" data-t="amber"  title="Amber"   onclick="setTheme('amber')"></span>
+  <span class="theme-dot"        data-t="emerald" title="Emerald" onclick="setTheme('emerald')"></span>
+  <span class="theme-dot"        data-t="violet"  title="Violet"  onclick="setTheme('violet')"></span>
+  <span class="theme-dot"        data-t="rose"    title="Rose"    onclick="setTheme('rose')"></span>
+  <span class="theme-dot"        data-t="cyan"    title="Cyan"    onclick="setTheme('cyan')"></span>
+  <span class="theme-dot"        data-t="solar"   title="Solar"   onclick="setTheme('solar')"></span>
+</div>
 
 <header>
   <div class="logo">
@@ -1688,6 +1794,25 @@ function downloadCertificate() {
   w.document.write(certHTML);
   w.document.close();
 }
+
+// ============================================================
+// THEME SWITCHER
+// ============================================================
+function setTheme(name) {
+  document.body.setAttribute('data-theme', name);
+  document.querySelectorAll('.theme-dot').forEach(d => {
+    d.classList.toggle('active', d.getAttribute('data-t') === name);
+  });
+  try { localStorage.setItem('pp_theme', name); } catch(e) {}
+}
+
+// Restore saved theme
+(function() {
+  try {
+    const saved = localStorage.getItem('pp_theme');
+    if (saved) setTheme(saved);
+  } catch(e) {}
+})();
 
 boot();
 </script>
