@@ -17,8 +17,8 @@
     --accent: #f0a500;
     --accent2: #e05a00;
     --text: #e8eaf0;
-    --text-muted: #6b7280;
-    --text-dim: #9ca3af;
+    --text-muted: #9ca3af;
+    --text-dim: #bdc3ce;
     --green: #22c55e;
     --red: #ef4444;
     --blue: #3b82f6;
@@ -29,7 +29,7 @@
     --bg: #0d0f12; --surface: #13161b; --surface2: #1a1e25;
     --border: #252a33; --border-bright: #3a4151;
     --accent: #f0a500; --accent2: #e05a00;
-    --text: #e8eaf0; --text-muted: #6b7280; --text-dim: #9ca3af;
+    --text: #e8eaf0; --text-muted: #9ca3af; --text-dim: #bdc3ce;
     --green: #22c55e; --red: #ef4444; --blue: #3b82f6;
     --theme-label: "🟡 Amber";
   }
@@ -39,7 +39,7 @@
     --bg: #071210; --surface: #0d1f1c; --surface2: #132c27;
     --border: #1c3d37; --border-bright: #2d5e55;
     --accent: #10b981; --accent2: #059669;
-    --text: #d1fae5; --text-muted: #6b9e93; --text-dim: #8db8b0;
+    --text: #d1fae5; --text-muted: #8db8b0; --text-dim: #a9cecc;
     --green: #34d399; --red: #f87171; --blue: #60a5fa;
     --theme-label: "🟢 Emerald";
   }
@@ -49,7 +49,7 @@
     --bg: #0e0a1a; --surface: #16112a; --surface2: #1e1838;
     --border: #2e2650; --border-bright: #4a3d7a;
     --accent: #8b5cf6; --accent2: #7c3aed;
-    --text: #ede9fe; --text-muted: #7c6fa0; --text-dim: #a89ec0;
+    --text: #ede9fe; --text-muted: #a89ec0; --text-dim: #c3b8d8;
     --green: #a78bfa; --red: #f87171; --blue: #60a5fa;
     --theme-label: "🟣 Violet";
   }
@@ -59,7 +59,7 @@
     --bg: #130a0d; --surface: #1f0f14; --surface2: #2d161c;
     --border: #3d1e27; --border-bright: #5e3040;
     --accent: #f43f5e; --accent2: #e11d48;
-    --text: #ffe4e6; --text-muted: #9e6c75; --text-dim: #c08a92;
+    --text: #ffe4e6; --text-muted: #c08a92; --text-dim: #d4a8ad;
     --green: #34d399; --red: #fb923c; --blue: #60a5fa;
     --theme-label: "🔴 Rose";
   }
@@ -69,7 +69,7 @@
     --bg: #050f14; --surface: #091820; --surface2: #0f2230;
     --border: #163040; --border-bright: #255068;
     --accent: #06b6d4; --accent2: #0891b2;
-    --text: #cffafe; --text-muted: #5e9aaa; --text-dim: #7fb5c3;
+    --text: #cffafe; --text-muted: #7fb5c3; --text-dim: #9fcdda;
     --green: #34d399; --red: #f87171; --blue: #38bdf8;
     --theme-label: "🔵 Cyan";
   }
@@ -79,7 +79,7 @@
     --bg: #fdf6e3; --surface: #eee8d5; --surface2: #f5efdc;
     --border: #ccc4aa; --border-bright: #b5ae98;
     --accent: #cb4b16; --accent2: #d33682;
-    --text: #073642; --text-muted: #657b83; --text-dim: #586e75;
+    --text: #073642; --text-muted: #3d5560; --text-dim: #334e55;
     --green: #2aa198; --red: #dc322f; --blue: #268bd2;
     --theme-label: "☀️ Solar";
   }
@@ -1607,7 +1607,7 @@ function downloadCertificate() {
 
   .cert-intro{
     font-family:'IBM Plex Mono',monospace;
-    font-size:7pt; letter-spacing:3px; text-transform:uppercase; color:#777; margin-bottom:1mm;
+    font-size:7pt; letter-spacing:3px; text-transform:uppercase; color:#444; margin-bottom:1mm;
   }
   .cert-heading{
     font-family:'Bebas Neue',sans-serif;
@@ -1625,7 +1625,7 @@ function downloadCertificate() {
   }
   .emp-id{
     font-family:'IBM Plex Mono',monospace;
-    font-size:7.5pt; letter-spacing:2px; color:#888; margin-bottom:2mm;
+    font-size:7.5pt; letter-spacing:2px; color:#555; margin-bottom:2mm;
   }
   .cert-participation{
     font-family:'IBM Plex Sans',sans-serif;
@@ -1638,7 +1638,7 @@ function downloadCertificate() {
   .info-cell:last-child{ border-right:none; }
   .info-lbl{
     font-family:'IBM Plex Mono',monospace;
-    font-size:5.5pt; color:#aaa; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:0.5mm;
+    font-size:5.5pt; color:#666; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:0.5mm;
   }
   .info-val{
     font-family:'IBM Plex Sans',sans-serif;
@@ -1695,11 +1695,11 @@ function downloadCertificate() {
   }
   .sig-title{
     font-family:'IBM Plex Mono',monospace;
-    font-size:6pt; color:#777; letter-spacing:0.5px; margin-top:0.5mm;
+    font-size:6pt; color:#444; letter-spacing:0.5px; margin-top:0.5mm;
   }
   .sig-company{
     font-family:'IBM Plex Mono',monospace;
-    font-size:6pt; color:#777; letter-spacing:0.5px; margin-top:0.5mm;
+    font-size:6pt; color:#444; letter-spacing:0.5px; margin-top:0.5mm;
   }
   .seal-centre{ text-align:center; }
   .seal-outer-ring{
@@ -1732,7 +1732,7 @@ function downloadCertificate() {
   }
   .seal-date{
     font-family:'IBM Plex Mono',monospace;
-    font-size:6pt; color:#888; margin-top:1mm;
+    font-size:6pt; color:#555; margin-top:1mm;
   }
 </style></head><body>
 
@@ -1756,7 +1756,7 @@ function downloadCertificate() {
 
     <!-- BODY -->
     <div class="body">
-      <div class="cert-intro">POLYPLASTICS Industries India Pvt. Ltd. — Annual Training Assessment ${year}</div>
+      <div class="cert-intro">POLYPLASTICS Industries India Pvt. Ltd. — Annual Assessment ${year}</div>
       <div class="cert-heading">CERTIFICATE OF ASSESSMENT</div>
 
       <p class="presented">This is to certify that</p>
@@ -1776,11 +1776,11 @@ function downloadCertificate() {
         </div>
         <div class="info-cell">
           <div class="info-lbl">${sub1n}</div>
-          <div class="info-val">${sub1v} <span style="font-weight:400;color:#888;font-size:7.5pt;">${sub1mx}</span></div>
+          <div class="info-val">${sub1v} <span style="font-weight:400;color:#555;font-size:7.5pt;">${sub1mx}</span></div>
         </div>
         <div class="info-cell">
           <div class="info-lbl">${sub2n}</div>
-          <div class="info-val">${sub2v} <span style="font-weight:400;color:#888;font-size:7.5pt;">${sub2mx}</span></div>
+          <div class="info-val">${sub2v} <span style="font-weight:400;color:#555;font-size:7.5pt;">${sub2mx}</span></div>
         </div>
       </div>
 
@@ -1811,7 +1811,7 @@ function downloadCertificate() {
         <div style="display:flex; flex-direction:column; align-items:center;">
           <div id="cert-qr-container" style="background:#fff; padding:3px; border:1px solid #ddd; border-radius:2px;"></div>
           <div style="font-family:'IBM Plex Mono',monospace; font-size:5pt; letter-spacing:2px; text-transform:uppercase; color:#555; margin-top:1.5mm; text-align:center;">Scan to Verify</div>
-          <div style="font-family:'IBM Plex Mono',monospace; font-size:4pt; letter-spacing:1px; color:#999; text-align:center; margin-top:0.5mm;">CERT-${year}-GEN-${today.replace(/\//g,'')}-${empId.slice(-4)}</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:4pt; letter-spacing:1px; color:#555; text-align:center; margin-top:0.5mm;">CERT-${year}-GEN-${today.replace(/\//g,'')}-${empId.slice(-4)}</div>
         </div>
       </div>
 
