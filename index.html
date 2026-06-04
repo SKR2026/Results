@@ -1660,7 +1660,7 @@ function downloadCertificate() {
     font-family:'IBM Plex Mono',monospace;
     font-size:5.5pt; letter-spacing:2px; opacity:0.75; text-transform:uppercase; margin-top:1mm;
   }
-  .grade-cell{ flex:1.4; text-align:center; padding:3mm 2mm; }
+  .grade-cell{ flex:1.4; padding:3mm 2mm; display:flex; flex-direction:column; justify-content:space-between; }
   .grade-badge-cert{
     display:inline-block; background:${accentLight}; color:#fff;
     padding:1.5mm 5mm;
@@ -1670,6 +1670,19 @@ function downloadCertificate() {
   .grade-msg-cert{
     font-family:'IBM Plex Mono',monospace;
     font-size:5.5pt; opacity:0.8; letter-spacing:1px; color:#fff;
+  }
+  .cert-qr-wrap{
+    display:flex; flex-direction:column; align-items:flex-end; margin-top:2mm;
+  }
+  .cert-qr-scan-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:5pt; letter-spacing:2px; text-transform:uppercase;
+    color:#fff; opacity:0.85; margin-top:1.5mm; text-align:right;
+  }
+  .cert-qr-ref{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:4pt; letter-spacing:1px;
+    color:#fff; opacity:0.6; text-align:right; margin-top:0.5mm;
   }
 
   /* ── Footer signatures ── */
@@ -1786,10 +1799,14 @@ function downloadCertificate() {
           <div class="sc-sub">Overall Avg</div>
         </div>
         <div class="score-cell-cert grade-cell">
-          <div class="grade-badge-cert">${grade.label}</div>
-          <div class="grade-msg-cert">${grade.msg}</div>
-          <div style="margin-top:3mm;display:flex;justify-content:flex-end;">
-            <div id="cert-qr-container" style="background:#fff;padding:2px;border-radius:2px;"></div>
+          <div>
+            <div class="grade-badge-cert">${grade.label}</div>
+            <div class="grade-msg-cert">${grade.msg}</div>
+          </div>
+          <div class="cert-qr-wrap">
+            <div id="cert-qr-container" style="background:#fff;padding:3px;border-radius:2px;"></div>
+            <div class="cert-qr-scan-label">Scan to Verify</div>
+            <div class="cert-qr-ref">CERT-${year}-${empId}-${today.replace(/\//g,'')}</div>
           </div>
         </div>
       </div>
@@ -1833,13 +1850,13 @@ function downloadCertificate() {
 <script>
   // Generate QR code in grade section
   (function() {
-    var qrData = 'ID:${empId}|${name}|OVERALL:${overall}|GRADE:${grade.label}';
+    var qrData = 'CERT-${year}-${empId}|${name}|OVERALL:${overall}|GRADE:${grade.label}|DATE:${today}';
     var container = document.getElementById('cert-qr-container');
     if (container && typeof QRCode !== 'undefined') {
       new QRCode(container, {
         text: qrData,
-        width: 52,
-        height: 52,
+        width: 68,
+        height: 68,
         colorDark: '#000000',
         colorLight: '#ffffff',
         correctLevel: QRCode.CorrectLevel.M
