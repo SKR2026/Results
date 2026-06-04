@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>POLYPLASTICS — Employee Result Portal</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
   /* ═══════════════ THEME DEFINITIONS ═══════════════ */
   :root {
@@ -454,6 +455,40 @@
   .btn-cert { padding:12px 28px; background:var(--accent); color:#000; border:none;
     font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px; cursor:pointer; transition:opacity 0.2s; }
   .btn-cert:hover { opacity:0.85; }
+
+  /* QR Code in score cells */
+  .score-cell-footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 8px;
+  }
+  .score-cell-footer .result-status-row {
+    margin-top: 0;
+    flex: 1;
+  }
+  .qr-box {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+  .qr-box canvas, .qr-box img {
+    border: 2px solid var(--border-bright);
+    border-radius: 3px;
+    background: #fff;
+    display: block;
+  }
+  .qr-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: center;
+  }
 </style>
 </head>
 <body data-theme="amber">
@@ -522,7 +557,13 @@
           <div class="score-value" id="res_sub1">0</div>
           <div class="score-max" id="res_sub1max">out of 100</div>
           <div class="score-bar-track"><div class="score-bar-fill" id="bar_sub1" style="width:0%"></div></div>
-          <div class="result-status-row" id="sub1_status"></div>
+          <div class="score-cell-footer">
+            <div class="result-status-row" id="sub1_status"></div>
+            <div class="qr-box">
+              <div id="qr_sub1"></div>
+              <div class="qr-label">S1 Result</div>
+            </div>
+          </div>
         </div>
         <div class="score-cell">
           <div class="score-label">Subject 2</div>
@@ -530,14 +571,26 @@
           <div class="score-value" id="res_sub2">0</div>
           <div class="score-max" id="res_sub2max">out of 100</div>
           <div class="score-bar-track"><div class="score-bar-fill" id="bar_sub2" style="width:0%"></div></div>
-          <div class="result-status-row" id="sub2_status"></div>
+          <div class="score-cell-footer">
+            <div class="result-status-row" id="sub2_status"></div>
+            <div class="qr-box">
+              <div id="qr_sub2"></div>
+              <div class="qr-label">S2 Result</div>
+            </div>
+          </div>
         </div>
         <div class="score-cell highlight">
           <div class="score-label">Overall Score (Avg %)</div>
           <div class="score-value" id="res_overall">0</div>
           <div class="score-max" id="res_overallmax">avg of both subjects</div>
           <div class="score-bar-track"><div class="score-bar-fill" id="bar_overall" style="width:0%"></div></div>
-          <div class="result-status-row" id="overall_status"></div>
+          <div class="score-cell-footer">
+            <div class="result-status-row" id="overall_status"></div>
+            <div class="qr-box">
+              <div id="qr_overall"></div>
+              <div class="qr-label">Overall</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1037,6 +1090,27 @@ function lookupEmployee() {
   document.getElementById('overall_status').innerHTML = gradeHTML(overallPct);
   card.classList.add('visible');
   document.getElementById('certBar').style.display = 'flex';
+
+  // Generate QR codes for each score cell
+  function makeQR(containerId, text) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+    new QRCode(container, {
+      text: text,
+      width: 60,
+      height: 60,
+      colorDark: '#000000',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  }
+  const base = window.location.href.split('?')[0];
+  const g1 = getGrade(pct1);
+  const g2 = getGrade(pct2);
+  const gO = getGrade(overallPct);
+  makeQR('qr_sub1',    `ID:${emp.id}|${emp.sub1name}:${emp.sub1}/${emp.sub1max}|${g1.label}`);
+  makeQR('qr_sub2',    `ID:${emp.id}|${emp.sub2name}:${emp.sub2}/${emp.sub2max}|${g2.label}`);
+  makeQR('qr_overall', `ID:${emp.id}|OVERALL:${overallPct.toFixed(1)}%|${gO.label}`);
 }
 
 // ============================================================
@@ -1647,6 +1721,7 @@ function downloadCertificate() {
   .sig-title{
     font-family:'IBM Plex Mono',monospace;
     font-size:6pt; color:#777; letter-spacing:0.5px; margin-top:0.5mm;
+    white-space: nowrap;
   }
   .seal-centre{ text-align:center; }
   .seal-outer-ring{
@@ -1779,7 +1854,7 @@ function downloadCertificate() {
         <div class="sig">
           <div class="sig-line"></div>
           <div class="sig-name">Kapil Gupta</div>
-          <div class="sig-title">Jt. Managing Director | Polyplastics Industries India Pvt. Ltd.</div>
+          <div class="sig-title">Jt. Managing Director | Polyplastics Industries (I) Pvt. Ltd.</div>
         </div>
       </div>
     </div>
