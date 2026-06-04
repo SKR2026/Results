@@ -1807,11 +1807,11 @@ function downloadCertificate() {
       </div>
 
       <!-- QR Code below score band, right-aligned -->
-      <div style="display:flex; justify-content:flex-end; padding:3mm 6mm 2mm 4mm;">
-        <div style="display:flex; flex-direction:column; align-items:flex-end;">
-          <div id="cert-qr-container" style="background:#fff; padding:4px; border:1px solid #ccc; border-radius:2px;"></div>
-          <div style="font-family:'IBM Plex Mono',monospace; font-size:6pt; letter-spacing:2.5px; text-transform:uppercase; color:#444; margin-top:2mm; text-align:right;">Scan to Verify</div>
-          <div style="font-family:'IBM Plex Mono',monospace; font-size:5pt; letter-spacing:1px; color:#888; text-align:right; margin-top:0.5mm;">CERT-${year}-GEN-${today.replace(/\//g,'')}-${empId.slice(-4)}</div>
+      <div style="display:flex; justify-content:flex-end; padding:3mm 4mm 2mm 4mm;">
+        <div style="display:flex; flex-direction:column; align-items:center;">
+          <div id="cert-qr-container" style="background:#fff; padding:3px; border:1px solid #ddd; border-radius:2px;"></div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:5pt; letter-spacing:2px; text-transform:uppercase; color:#555; margin-top:1.5mm; text-align:center;">Scan to Verify</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:4pt; letter-spacing:1px; color:#999; text-align:center; margin-top:0.5mm;">CERT-${year}-GEN-${today.replace(/\//g,'')}-${empId.slice(-4)}</div>
         </div>
       </div>
 
@@ -1859,8 +1859,8 @@ function downloadCertificate() {
     if (container && typeof QRCode !== 'undefined') {
       new QRCode(container, {
         text: qrData,
-        width: 128,
-        height: 128,
+        width: 68,
+        height: 68,
         colorDark: '#000000',
         colorLight: '#ffffff',
         correctLevel: QRCode.CorrectLevel.M
