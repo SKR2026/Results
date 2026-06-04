@@ -1660,7 +1660,7 @@ function downloadCertificate() {
     font-family:'IBM Plex Mono',monospace;
     font-size:5.5pt; letter-spacing:2px; opacity:0.75; text-transform:uppercase; margin-top:1mm;
   }
-  .grade-cell{ flex:1.4; padding:3mm 2mm; display:flex; flex-direction:column; justify-content:space-between; }
+  .grade-cell{ flex:1.4; text-align:center; padding:3mm 2mm; }
   .grade-badge-cert{
     display:inline-block; background:${accentLight}; color:#fff;
     padding:1.5mm 5mm;
@@ -1803,11 +1803,15 @@ function downloadCertificate() {
             <div class="grade-badge-cert">${grade.label}</div>
             <div class="grade-msg-cert">${grade.msg}</div>
           </div>
-          <div class="cert-qr-wrap">
-            <div id="cert-qr-container" style="background:#fff;padding:3px;border-radius:2px;"></div>
-            <div class="cert-qr-scan-label">Scan to Verify</div>
-            <div class="cert-qr-ref">CERT-${year}-${empId}-${today.replace(/\//g,'')}</div>
-          </div>
+        </div>
+      </div>
+
+      <!-- QR Code below score band, right-aligned -->
+      <div style="display:flex; justify-content:flex-end; padding:3mm 4mm 2mm 4mm;">
+        <div style="display:flex; flex-direction:column; align-items:center;">
+          <div id="cert-qr-container" style="background:#fff; padding:3px; border:1px solid #ddd; border-radius:2px;"></div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:5pt; letter-spacing:2px; text-transform:uppercase; color:#555; margin-top:1.5mm; text-align:center;">Scan to Verify</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:4pt; letter-spacing:1px; color:#999; text-align:center; margin-top:0.5mm;">CERT-${year}-GEN-${today.replace(/\//g,'')}-${empId.slice(-4)}</div>
         </div>
       </div>
 
