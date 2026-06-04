@@ -557,13 +557,7 @@
           <div class="score-value" id="res_sub1">0</div>
           <div class="score-max" id="res_sub1max">out of 100</div>
           <div class="score-bar-track"><div class="score-bar-fill" id="bar_sub1" style="width:0%"></div></div>
-          <div class="score-cell-footer">
-            <div class="result-status-row" id="sub1_status"></div>
-            <div class="qr-box">
-              <div id="qr_sub1"></div>
-              <div class="qr-label">S1 Result</div>
-            </div>
-          </div>
+          <div class="result-status-row" id="sub1_status"></div>
         </div>
         <div class="score-cell">
           <div class="score-label">Subject 2</div>
@@ -571,26 +565,14 @@
           <div class="score-value" id="res_sub2">0</div>
           <div class="score-max" id="res_sub2max">out of 100</div>
           <div class="score-bar-track"><div class="score-bar-fill" id="bar_sub2" style="width:0%"></div></div>
-          <div class="score-cell-footer">
-            <div class="result-status-row" id="sub2_status"></div>
-            <div class="qr-box">
-              <div id="qr_sub2"></div>
-              <div class="qr-label">S2 Result</div>
-            </div>
-          </div>
+          <div class="result-status-row" id="sub2_status"></div>
         </div>
         <div class="score-cell highlight">
           <div class="score-label">Overall Score (Avg %)</div>
           <div class="score-value" id="res_overall">0</div>
           <div class="score-max" id="res_overallmax">avg of both subjects</div>
           <div class="score-bar-track"><div class="score-bar-fill" id="bar_overall" style="width:0%"></div></div>
-          <div class="score-cell-footer">
-            <div class="result-status-row" id="overall_status"></div>
-            <div class="qr-box">
-              <div id="qr_overall"></div>
-              <div class="qr-label">Overall</div>
-            </div>
-          </div>
+          <div class="result-status-row" id="overall_status"></div>
         </div>
       </div>
 
@@ -1090,27 +1072,6 @@ function lookupEmployee() {
   document.getElementById('overall_status').innerHTML = gradeHTML(overallPct);
   card.classList.add('visible');
   document.getElementById('certBar').style.display = 'flex';
-
-  // Generate QR codes for each score cell
-  function makeQR(containerId, text) {
-    const container = document.getElementById(containerId);
-    container.innerHTML = '';
-    new QRCode(container, {
-      text: text,
-      width: 60,
-      height: 60,
-      colorDark: '#000000',
-      colorLight: '#ffffff',
-      correctLevel: QRCode.CorrectLevel.M
-    });
-  }
-  const base = window.location.href.split('?')[0];
-  const g1 = getGrade(pct1);
-  const g2 = getGrade(pct2);
-  const gO = getGrade(overallPct);
-  makeQR('qr_sub1',    `ID:${emp.id}|${emp.sub1name}:${emp.sub1}/${emp.sub1max}|${g1.label}`);
-  makeQR('qr_sub2',    `ID:${emp.id}|${emp.sub2name}:${emp.sub2}/${emp.sub2max}|${g2.label}`);
-  makeQR('qr_overall', `ID:${emp.id}|OVERALL:${overallPct.toFixed(1)}%|${gO.label}`);
 }
 
 // ============================================================
@@ -1593,6 +1554,7 @@ function downloadCertificate() {
   const certHTML = `<!DOCTYPE html><html><head><meta charset="UTF-8">
 <title>Certificate – ${name}</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\/script>
 <style>
   @page { size:A4 landscape; margin:0; }
   *{ margin:0; padding:0; box-sizing:border-box; }
@@ -1721,7 +1683,10 @@ function downloadCertificate() {
   .sig-title{
     font-family:'IBM Plex Mono',monospace;
     font-size:6pt; color:#777; letter-spacing:0.5px; margin-top:0.5mm;
-    white-space: nowrap;
+  }
+  .sig-company{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:6pt; color:#777; letter-spacing:0.5px; margin-top:0.5mm;
   }
   .seal-centre{ text-align:center; }
   .seal-outer-ring{
@@ -1823,6 +1788,9 @@ function downloadCertificate() {
         <div class="score-cell-cert grade-cell">
           <div class="grade-badge-cert">${grade.label}</div>
           <div class="grade-msg-cert">${grade.msg}</div>
+          <div style="margin-top:3mm;display:flex;justify-content:flex-end;">
+            <div id="cert-qr-container" style="background:#fff;padding:2px;border-radius:2px;"></div>
+          </div>
         </div>
       </div>
 
@@ -1854,14 +1822,32 @@ function downloadCertificate() {
         <div class="sig">
           <div class="sig-line"></div>
           <div class="sig-name">Kapil Gupta</div>
-          <div class="sig-title">Jt. Managing Director | Polyplastics Industries (I) Pvt. Ltd.</div>
+          <div class="sig-title">Jt. Managing Director</div>
+          <div class="sig-company">Polyplastics Industries (I) Pvt. Ltd.</div>
         </div>
       </div>
     </div>
 
   </div><!-- /cert-wrap -->
 
-<script>window.onload=()=>setTimeout(()=>{ window.print(); },500);<\/script>
+<script>
+  // Generate QR code in grade section
+  (function() {
+    var qrData = 'ID:${empId}|${name}|OVERALL:${overall}|GRADE:${grade.label}';
+    var container = document.getElementById('cert-qr-container');
+    if (container && typeof QRCode !== 'undefined') {
+      new QRCode(container, {
+        text: qrData,
+        width: 52,
+        height: 52,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    }
+  })();
+<\/script>
+<script>window.onload=()=>setTimeout(()=>{ window.print(); },800);<\/script>
 </body></html>`;
 
   const w = window.open('','_blank','width=1122,height=794');
